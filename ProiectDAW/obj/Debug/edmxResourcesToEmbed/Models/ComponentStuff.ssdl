@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ComponentId" Type="int" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ComponentImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ComponentId" Type="int" Nullable="false" />
+    <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ComponentListEntries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ComponentListId" Type="int" Nullable="false" />
+    <Property Name="ComponentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ComponentLists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Components">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <Association Name="FK_dbo_Comments_dbo_AspNetUsers_Id">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Comments_dbo_Components_Id">
+    <End Role="Components" Type="Self.Components" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Components">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="ComponentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ComponentImages_dbo_Components_Id">
+    <End Role="Components" Type="Self.Components" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ComponentImages" Type="Self.ComponentImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Components">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ComponentImages">
+        <PropertyRef Name="ComponentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ComponentListEntries_dbo_ComponentLists_Id">
+    <End Role="ComponentLists" Type="Self.ComponentLists" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ComponentListEntries" Type="Self.ComponentListEntries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ComponentLists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ComponentListEntries">
+        <PropertyRef Name="ComponentListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ComponentListEntries_dbo_Components_Id">
+    <End Role="Components" Type="Self.Components" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ComponentListEntries" Type="Self.ComponentListEntries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Components">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ComponentListEntries">
+        <PropertyRef Name="ComponentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ComponentLists_dbo_AspNetUsers_Id">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ComponentLists" Type="Self.ComponentLists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ComponentLists">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Components_dbo_Category_CategoryId">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Components" Type="Self.Components" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Components">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ComponentImages" EntityType="Self.ComponentImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ComponentListEntries" EntityType="Self.ComponentListEntries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ComponentLists" EntityType="Self.ComponentLists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Components" EntityType="Self.Components" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_Comments_dbo_AspNetUsers_Id" Association="Self.FK_dbo_Comments_dbo_AspNetUsers_Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Comments_dbo_Components_Id" Association="Self.FK_dbo_Comments_dbo_Components_Id">
+      <End Role="Components" EntitySet="Components" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ComponentImages_dbo_Components_Id" Association="Self.FK_dbo_ComponentImages_dbo_Components_Id">
+      <End Role="Components" EntitySet="Components" />
+      <End Role="ComponentImages" EntitySet="ComponentImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ComponentListEntries_dbo_ComponentLists_Id" Association="Self.FK_dbo_ComponentListEntries_dbo_ComponentLists_Id">
+      <End Role="ComponentLists" EntitySet="ComponentLists" />
+      <End Role="ComponentListEntries" EntitySet="ComponentListEntries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ComponentListEntries_dbo_Components_Id" Association="Self.FK_dbo_ComponentListEntries_dbo_Components_Id">
+      <End Role="Components" EntitySet="Components" />
+      <End Role="ComponentListEntries" EntitySet="ComponentListEntries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ComponentLists_dbo_AspNetUsers_Id" Association="Self.FK_dbo_ComponentLists_dbo_AspNetUsers_Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ComponentLists" EntitySet="ComponentLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Components_dbo_Category_CategoryId" Association="Self.FK_dbo_Components_dbo_Category_CategoryId">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Components" EntitySet="Components" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

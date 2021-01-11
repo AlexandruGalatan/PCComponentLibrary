@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="589fbc9cd21f4365be69acb2a85d5e92" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Category" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Comment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ComponentImage" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ComponentListEntry" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ComponentList" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Component" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_Comments_dbo_AspNetUsers_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ComponentLists_dbo_AspNetUsers_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Components_dbo_Category_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Comments_dbo_Components_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ComponentImages_dbo_Components_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ComponentListEntries_dbo_ComponentLists_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ComponentListEntries_dbo_Components_Id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

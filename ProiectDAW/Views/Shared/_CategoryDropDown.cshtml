@@ -1,0 +1,7 @@
+﻿@model IEnumerable<ProiectDAW.Models.Category>
+
+
+@foreach (var item in Model)
+{
+    <a class="dropdown-item" href="@Url.Action("Index", "Components", new { id = item.Id })">@item.Title</a>
+}

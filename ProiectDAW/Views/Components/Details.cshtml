@@ -1,0 +1,85 @@
+﻿@model ProiectDAW.Models.Component
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    @foreach (var item in ViewBag.Images)
+    {
+
+
+        var b64 = Convert.ToBase64String(item.Image);
+        var imgsrc = string.Format("data:image/gif;base64,{0}", b64);
+   
+        //<a href='@Url.Action("Details", "ComponentImages", new { id = item.Id})'>
+            <img src="@imgsrc" style="max-width:150px;max-height:150px;" />
+        //</a>
+    }
+    </div>
+
+<h2>Details</h2>
+
+<div>
+    <h4>Component</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Title)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <h4>Comments</h4>
+    <hr />
+    @foreach (var item in ViewBag.Comments)
+    {
+        <div>
+            @item.AspNetUserName - @item.TimeStamp
+            @if (item.AspNetUserId == User.Identity.GetUserId())
+            {
+                @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.Id }, null)<text> | </text>@Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, null)
+            }
+            <br />
+            @item.Message
+            <hr />
+        </div>
+    }
+</div>
+
+<p>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "ComponentListEntries" , new { id=Model.Id })'">Add to List</button>
+
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Comments" , new { id=Model.Id })'">Comment</button>
+
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Edit", new { id = Model.Id })'">Edit</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "ComponentImages", new { id = Model.Id })'">Add Image</button>
+    }
+
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index")'">Back to List</button>
+</p>

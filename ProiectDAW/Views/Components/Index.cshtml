@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ProiectDAW.Models.Component>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.DisplayTitle</h2>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Components", new { id = 0 })'">All Components</button>
+
+@foreach (var item in ViewBag.ShowCategories)
+{
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Components", new { id = item.Id })'">@item.Title</button>
+}
+    <br />
+    <br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Title)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Title)
+            </td>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

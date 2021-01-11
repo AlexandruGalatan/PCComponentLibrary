@@ -1,0 +1,99 @@
+﻿.<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - PC Components</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("PC Components", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+                    <li class="btn-group dropdown">
+                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Components")';return false;">Components</button>
+                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            @Html.Action("DropDown", "ComponentDropdown")
+                        </div>
+                    </li>
+
+
+
+        <li>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </li>*@
+
+                    <li>@Html.ActionLink("Components", "Index", "Components")</li>
+
+
+                    <li>@Html.ActionLink("My Lists", "Index", "ComponentLists")</li>
+
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        @*
+            <li class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:transparent;">
+
+                        <li class="list-group-item"><a class="dropdown-item" href="@Url.Action("Index", "Categories")">Categories</a></li>
+                        <li class="list-group-item"><a class="dropdown-item" href="@Url.Action("Index", "Comments")">Comments</a></li>
+                        <li class="list-group-item"><a class="dropdown-item" href="@Url.Action("Index", "ComponentImages")">Images</a></li>
+
+
+
+                </ul>
+            </li>*@
+                        <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                        <li>@Html.ActionLink("Comments", "Index", "Comments")</li>
+                        <li>@Html.ActionLink("Component Images", "Index", "ComponentImages")</li>
+                    }
+                    @*
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - PC Components</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
