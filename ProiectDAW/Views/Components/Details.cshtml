@@ -51,6 +51,24 @@
     </dl>
 </div>
 
+<div>
+    <h4>Comments</h4>
+    <hr />
+    @foreach (var item in ViewBag.Comments)
+    {
+        <div>
+            @item.AspNetUserName - @item.TimeStamp
+            @if (item.AspNetUserId == User.Identity.GetUserId())
+            {
+                @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.Id }, null)<text> | </text>@Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, null)
+            }
+            <br />
+            @item.Message
+            <hr />
+        </div>
+    }
+</div>
+
 
 <p>
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "ComponentListEntries" , new { id=Model.Id })'">Add to List</button>
