@@ -35,7 +35,7 @@ namespace ProiectDAW.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.DisplayTitle = "All Components - " +category.Title;
+            ViewBag.DisplayTitle = "All Components - " + category.Title;
 
             var components2 = db.Components.Where(i => i.CategoryId == id).Include(c => c.Category);
             return View(components2.ToList());

@@ -22,10 +22,10 @@ namespace ProiectDAW.Controllers
         {
             var componentLists = db.ComponentLists.Include(c => c.AspNetUser);
 
-            if (User.IsInRole("Admin"))
-            {
-                return View(componentLists.ToList());
-            }
+            //if (User.IsInRole("Admin"))
+            //{
+            //    return View(componentLists.ToList());
+            //}
 
             var userId = User.Identity.GetUserId();
             componentLists = db.ComponentLists.Where(i => i.AspNetUserId == userId).Include(c => c.AspNetUser);

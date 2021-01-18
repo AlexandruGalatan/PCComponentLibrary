@@ -75,12 +75,20 @@
 
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Comments" , new { id=Model.Id })'">Comment</button>
 
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index")'">Back to List</button>
 
     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Edit", new { id = Model.Id })'">Edit</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "ComponentImages", new { id = Model.Id })'">Add Image</button>
+        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", "Edit", new { id = Model.Id })'">Edit</button>
+        if (ViewBag.Images.Count <= 0)
+        {
+            <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Create", "ComponentImages", new { id = Model.Id })'">Add Image</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "ComponentImages", new { id = ViewBag.Images[0].Id })'">Remove Image</button>
+        }
+
     }
 
-    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index")'">Back to List</button>
 </p>
